@@ -1,0 +1,6 @@
+
+h2 {
+    text-align:center;
+    background: url("/img/button.png") left / auto 100% no-repeat,
+     url("/img/button.png") right / auto 100% no-repeat;
+}

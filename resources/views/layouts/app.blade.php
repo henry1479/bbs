@@ -11,14 +11,18 @@
         <div class="container-fluid">
             <a href="{{ route('index')}}" class="navbar-brand me-auto ">Главная</a>
             <div class="nav-link__block">
+              @guest
                 <a href="{{ route('register')}}" class="nav-item nav-link">Регистрация</a>
                 <a href="{{ route('login')}}" class="nav-item nav-link">Вход</a>
+              @endguest
+              @auth
                 <a href="{{ route('home')}}" class="nav-item nav-link">Мои объявления</a>
             </div>
             <form action="{{ route('logout')}}" method="POST" class="form-inline">
                 @csrf
                 <input type="submit" class="btn btn-danger" value="Выход"/>
             </form>
+            @endauth
         </div>
     </nav>
     <div class="container-fluid">

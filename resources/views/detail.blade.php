@@ -9,7 +9,7 @@
     <p>{{$bb->content}}</p>
     <span>Цена: </span>
     <p>{{$bb->price}} рублей</p>
-    <span>Автор:ex</span>
+    <span>Автор:</span>
     <p>{{$bb->user->name}}</p>
     <p><a href="{{ route('index')}}">На главную</a></p>
 @endsection

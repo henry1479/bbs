@@ -14,15 +14,24 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bbs', function (Blueprint $table) {
+
             $table->id();
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade');
+             // создание внешнего ключа для табицы "Рубрки"
+            $table->unsignedBigInteger("rubric_id");
+            $table->foreign("rubric_id")->references("id")->on("rubrics")->nullOnDelete();         
             $table->string("title", 50);
             $table->text("content");
             $table->float("price");
+            $table->text("adress");
             $table->timestamps();
             $table->index("created_at");
+            // мягкое удаление
+            $table->softDeletes();
+            // создание временной таблицы
+            // $table->temporary();
         });
     }
 

@@ -11,7 +11,7 @@ class MachineSpare extends Model
 {
     use HasFactory;
 
-    protected $table = "machine_spares";
+    protected $table = "machine_spare";
 
     protected $fillable = [
         "cnt"

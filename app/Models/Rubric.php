@@ -37,7 +37,7 @@ class Rubric extends Model
         return $this->hasOne(Bb::class)->ofMany(
             ["price" => "MIN", "created_at" => "MAX"],
             function ($query) {
-                $query->wereMonth("created_at", now()->month);
+                $query->whereMonth("created_at", now()->month);
             }
         );
     }

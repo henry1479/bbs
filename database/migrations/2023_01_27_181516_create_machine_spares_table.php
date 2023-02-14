@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('machine_spares', function (Blueprint $table) {
+        Schema::create('machine_spare', function (Blueprint $table) {
             $table->id();
             $table->foreignId("machine_id")->constrained()->cascadeOnDelete();
             $table->foreignId("spare_id")->constrained()->cascadeOnDelete();

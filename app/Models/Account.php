@@ -12,11 +12,12 @@ class Account extends Model
 
     protected $table = "accounts";
 
-    protected $guarded = [
-        "id",
+    protected $fillable = [
+        "login",
+        "about_me",
         "created_at",
         "updated_at",
-        "deleted_at"
+        "user_id"
     ];
 
 

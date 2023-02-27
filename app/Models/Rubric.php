@@ -53,7 +53,7 @@ class Rubric extends Model
     // пристутствует родительские рубрики и просто рубрики
     // в родительских рубриках поле parent_id это null
 
-    public function rubtics()
+    public function rubrics()
     {
         return $this->hasMany(self::class, "parent_id");
     }
@@ -74,6 +74,12 @@ class Rubric extends Model
             get: fn($value) => ($this->parent) ? "{$this->parent->title} - {$this->title}" : "{$this->title}"
         );
     }
+
+    // явное вдрение через модель
+    // public function resolveRouteBinding($value, $field = null)
+    // {
+    //     return $this->where($field ?? "id", $value)->firstOrFail();   
+    // }
 
 
 }

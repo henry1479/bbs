@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use App\Models\Rubric;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,17 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+        });
+        // фильтр на переданный URL-параметр рубрики
+        Route::pattern("rubric","[0-9]+");
+
+        // явное внедрение
+        Route::model("parentRubric", Rubric::class, function($value){ return new Rubric(["id" => $value]);});
+
+        //еще одно явное внедрение
+        Route::bind("parentRubric", function($value){
+            return Rubric::where("id",$value)
+                ->firstOrFail();
         });
     }
 

@@ -17,6 +17,7 @@
             <tr>
               <th scope="col">номер</th>
               <th scope="col">название</th>
+              <th scope="col">рубрика</th>
               <th scope="col">цена в рублях</th>
             </tr>
           </thead>
@@ -25,6 +26,7 @@
             <tr>
               <td>{{$i}}</td>
               <td>{{ $content[$i-1]->title }} </td>
+              <td>{{ $content[$i-1]->rubric->title}}</td>
               <td>{{ $content[$i-1]->price }}</td>
               <td><a href="{{ route('detail', ['bb' => $content[$i-1]->id]) }}">подробнее</a></td>
             </tr>

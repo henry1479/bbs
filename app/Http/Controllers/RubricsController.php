@@ -17,4 +17,9 @@ class RubricsController extends Controller
         // dd($parentRubric->rubrics);
         return view("rubrics.show",["rubrics" => $parentRubric->rubrics, "title" => $parentRubric->title]);
     }
+
+    public function showBbs(Rubric $rubric) {
+        // dump(request()->url());
+        return view("rubrics.show_bbs_on_rubric", ["content"=>$rubric->bbs, "title" => $rubric->title, "parent" => $rubric->parent]);
+    }
 }

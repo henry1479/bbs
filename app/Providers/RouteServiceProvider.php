@@ -48,6 +48,8 @@ class RouteServiceProvider extends ServiceProvider
             return Rubric::where("id",$value)
                 ->firstOrFail();
         });
+
+        
     }
 
     /**

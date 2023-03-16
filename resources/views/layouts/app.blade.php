@@ -11,12 +11,15 @@
         <div class="container-fluid">
             <a href="{{ route('index')}}" class="navbar-brand me-auto ">Главная</a>
             <div class="nav-link__block">
+            <a href="{{ route('rubrics_index')}}" class="nav-item nav-link">Рубрики</a>
               @guest
                 <a href="{{ route('register')}}" class="nav-item nav-link">Регистрация</a>
                 <a href="{{ route('login')}}" class="nav-item nav-link">Вход</a>
               @endguest
               @auth
+                <p  class="text-success">{{ Auth::user()->name }}</p>
                 <a href="{{ route('home')}}" class="nav-item nav-link">Мои объявления</a>
+                <a href="{{ route('message.show')}}" class="nav-item nav-link">Мои сообщения</a>
             </div>
             <form action="{{ route('logout')}}" method="POST" class="form-inline">
                 @csrf

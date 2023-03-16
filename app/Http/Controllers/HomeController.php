@@ -6,13 +6,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bb;
+use App\Models\Rubric;
 
 class HomeController extends Controller
 {
 
     private const BB_VALIDATOR = [
         "title" => "required|max:50",
+        "rubric_id" => "required|numeric",
         "content" => "required",
+        "adress" => "required|string|max:100",
         "price" => "required|numeric"
     ];
     /**
@@ -22,6 +25,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        //связывание посредника с контроллером
         $this->middleware('auth');
     }
 
@@ -37,23 +41,26 @@ class HomeController extends Controller
 
     public function create() 
     {
-        return view("bb-create");
+        return view("user_bb.bb-create",["rubrics" => Rubric::whereNotNull("parent_id")->get()]);
     }
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate(self::BB_VALIDATOR);
         Auth::user()->bbs()->create([
             "title" => $request->title,
+            "rubric_id" => $request->rubric_id,
             "content" => $request->content,
+            "adress" => $request->adress,
             "price" => $request->price
         ]);
-        return redirect()->route("home");
+        return to_route("home")->with("success","Новое объявление успешно создано с названием $request->title");
     }
 
     public function edit(Bb $bb)
     {
-        return view('bb-edit', ["bb" => $bb]);
+        return view('users_bb.bb-edit', ["bb" => $bb]);
     }
 
     public function update(Request $request, Bb $bb)
@@ -71,7 +78,7 @@ class HomeController extends Controller
 
     public function delete(Bb $bb)
     {
-        return view('bb-delete', ["bb" => $bb]);
+        return view('users_bb.bb-delete', ["bb" => $bb]);
     }
 
     public function destroy(Bb $bb)

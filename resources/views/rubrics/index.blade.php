@@ -1,11 +1,8 @@
 
-@dump($rubrics)
-
 
 @extends('layouts.app')
 
 @section('title', "рубрики")
-
 
 @section('content')
 

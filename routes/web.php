@@ -3,6 +3,7 @@
 use App\Http\Controllers\BbsController;
 use App\Http\Controllers\RubricsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MessagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,19 +19,37 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BbsController::class,"index"]
 )->name("index");
 
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get("/home/create", [App\Http\Controllers\HomeController::class, 'create'])->name("bb-create");
-Route::post("/home", [App\Http\Controllers\HomeController::class, "store"])->name("bb.store");
-Route::get("home/{bb}/edit", [App\Http\Controllers\HomeController::class, "edit"])->name("bb.edit")->middleware("can:update,bb")->whereNumber("bb");
-Route::post("home/{bb}", [App\Http\Controllers\HomeController::class, "update"])->name("bb.update")->middleware("can:update,bb")->whereNumber("bb");
-Route::get("home/{bb}/delete", [App\Http\Controllers\HomeController::class, "delete"])->name("bb.delete")->middleware("can:destroy,bb")->where("bb","[0-9]+");
-Route::delete("home/{bb}", [App\Http\Controllers\HomeController::class, "destroy"])->name("bb.destroy")->middleware("can:destroy,bb")->where("bb","[0-9]+");
+Route::controller(App\Http\Controllers\HomeController::class)->group(function () {
+    Route::get('/home', 'index')->name('home');
+    Route::name("bb.")->group(function () {
+        Route::get("/home/create",  'create')->name("create");
+        Route::post("/home",  "store")->name("store");
+        Route::middleware("can:update,bb")->group(function(){
+            Route::get("home/{bb}/edit",  "edit")->name("edit")->whereNumber("bb");
+            Route::post("home/{bb}",  "update")->name("update")->whereNumber("bb");
+
+        });
+        Route::middleware("can:destroy,bb")->group(function () {
+            Route::get("home/{bb}/delete", "delete")->name("delete")->where("bb","[0-9]+");
+            Route::delete("home/{bb}",  "destroy")->name("destroy")->where("bb","[0-9]+");
+        });
+    });
+});
+
+Route::controller(MessagesController::class)->name("message.")->prefix("message")->group(function (){
+    Route::get("/create/{user}", "create")->name("create");
+    Route::post("/send", "send")->name("send");
+    Route::get("/show","show")->name("show");
+});
+
+
 
 Route::get("/rubrics",[RubricsController::class,"index"])->name("rubrics_index");
+Route::get("/rubrics/{rubric}/bbs", [RubricsController::class, "showBbs"])->name("rubric_show_bbs");
 Route::get("/rubrics/{parentRubric}",[RubricsController::class,"show"])->name("rubrics_show");
+
 
 Route::fallback([BbsController::class, "index"]);
 

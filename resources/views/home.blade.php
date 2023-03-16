@@ -3,8 +3,13 @@
 @section('title', "Мои объявления")
 
 @section('content')
+@if( session("success") )
+<div class="alert alert-success" role="alert">
+    {{ session("success") }}
+</div>
+@endif
 <h2>Объявления для {{ Auth::user()->name }}</h2>
-<p class="text-end"><a href="{{ route('bb-create') }}">Добавить объявление</a></p>
+<p class="text-end"><a href="{{ route('bb.create') }}">Добавить объявление</a></p>
 @if (count($bbs) > 0)
     <table class="table table-striped table-borderlsess">
         <thead>

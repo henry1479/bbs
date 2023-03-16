@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\MessagesServices\Contracts\MessagesService;
+use App\Services\MessagesServices\Messager;
 use Illuminate\Support\ServiceProvider;
 use GardenApp\Garden;
 
@@ -14,9 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(Garden::class, function($app) {
-            return new Garden();
-        });
+        $this->app->bind(MessagesService::class, Messager::class);
+
+
     }
 
     /**

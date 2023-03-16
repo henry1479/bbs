@@ -16,7 +16,7 @@ class BbsController extends Controller
 
     public function detail(Bb $bb)
     {
-        return view("detail", ["bb" => $bb]);
+        return view("user_bb.detail", ["bb" => $bb]);
             
     }
 }

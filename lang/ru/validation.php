@@ -23,8 +23,10 @@ return [
     'array'                => 'Значение поля :attribute должно быть массивом.',
     'attributes'           => [
             'title' => 'Товар',
-            'content' => 'Содержание объявления',
+            'content' => 'Описание объявления',
+            'adress' => 'Адрес',
             'price' => 'Цена',
+            "content" => "Сообщение"
     ],
     'before'               => 'Значение поля :attribute должно быть датой до :date.',
     'before_or_equal'      => 'Значение поля :attribute должно быть датой до или равной :date.',

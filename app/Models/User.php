@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Message;
 use App\Models\Bb;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
@@ -72,6 +73,15 @@ class User extends Authenticatable
         // мутатор - преобразует данные перед сохранением в таблицу
         set: fn($value) => strtolower($value)
         )->shouldCache();
+    }
+
+
+    public function messagesFrom() {
+        return $this->hasMany(Message::class, "from_user_id", "id");
+    }
+
+    public function messagesTo() {
+        return $this->hasMany(Message::class, "to_user_id", "id");
     }
 
     
